@@ -1,0 +1,8 @@
+/.idea
+/build
+
+.DS_Store
+/stackpathcdnbeat
+/stackpathcdnbeat.test
+*.pyc
+/stackpathcdnbeat.*yml

@@ -1,0 +1,99 @@
+################### Stackpathcdnbeat Configuration Example #########################
+
+############################# Stackpathcdnbeat ######################################
+
+stackpathcdnbeat:
+  # Defines how often an event is sent to the output
+  period: 1s
+
+  # The endpoint and path that the stackpath api client should connect to. Get this
+  # from the stackpath control panel. These may vary depending on requesting from
+  # MaxCDN or StackPath.
+  endpoint: "https://rws.maxcdn.com"
+  path: "/v3/reporting/logs.json"
+  # Stackpath API credentials to use, get them from the stackpath control panel.
+  # https://cp.maxcdn.com/account/api
+  api_credentials:
+    alias: ""
+    key: ""
+    secret: ""
+    # site_id can be specified if you are only interested in a single site or 
+    # can use csv to specifiy multiple sites. If you want all your logs, just
+    # leave this empty.
+    # site_id: ""
+
+  # Define start and end time using rfc3339 format.
+
+  # Leaving start_time empty or not passing it will result in using the stackpath
+  # default start time of 1 hour before the first request is made. start_time will
+  # be interpreted as "greater than or equal to"
+  # start_time: "2017-06-30T12:00:00Z"
+
+  # Leaving end_time empty or not passing it will result in continuously making more
+  # requests until a kill signal is detected. end_time will be interpreted strictly as
+  # "less than."
+  # end_time: "2017-07-01T00:00:00Z"
+
+  # Because logs are stored by stackpath as the time the request was received by the
+  # server, and it takes time to server that request, and the log is not published
+  # until after the request is complete, the larger the delay from real time, the
+  # more likely you are to recieve all the logs when querying linearly. If you expect
+  # that many of your requests take a long time to fulfill, set this delay higher
+  # to increase the chances of not having any missed data.
+  query_delay: 20s
+
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+#name:
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: ["service-X", "web-tier"]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+#fields:
+#  env: staging
+
+#================================ Outputs =====================================
+
+# Configure what outputs to use when sending the data collected by the beat.
+# Multiple outputs may be used.
+
+#-------------------------- Elasticsearch output ------------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["localhost:9200"]
+
+  # Optional protocol and basic auth credentials.
+  #protocol: "https"
+  #username: "elastic"
+  #password: "changeme"
+
+#----------------------------- Logstash output --------------------------------
+#output.logstash:
+  # The Logstash hosts
+  #hosts: ["localhost:5044"]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+#================================ Logging =====================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: critical, error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use ["*"]. Examples of other selectors are "beat",
+# "publish", "service".
+#logging.selectors: ["*"]
