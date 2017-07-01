@@ -1,9 +1,7 @@
 # Stackpathcdnbeat
 
-Welcome to Stackpathcdnbeat.
-
-Ensure that this folder is at the following location:
-`${GOPATH}/github.com/bmconklin/stackpathcdnbeat`
+Welcome to Stackpathcdnbeat. Stackpathcdnbeat is a custom beat to fetch logs from the public API of Stackpath or MaxCDN and store them privately.
+The code is currently beta level quality and may require some bug fixes and optimizations. Chances are, this tool will not be efficient for StackPath customers with huge amounts of requests per second, but should be sufficient for most StackPath clients.
 
 ## Getting Started with Stackpathcdnbeat
 
@@ -11,88 +9,39 @@ Ensure that this folder is at the following location:
 
 * [Golang](https://golang.org/dl/) 1.7
 
-### Init Project
-To get running with Stackpathcdnbeat and also install the
-dependencies, run the following command:
+### Install
+
+To install the Stackpathcdnbeat, run
 
 ```
-make setup
+go get github.com/bmconklin/stackpathcdnbeat
 ```
 
-It will create a clean git history for each major step. Note that you can always rewrite the history if you wish before pushing your changes.
+### Configs
 
-To push Stackpathcdnbeat in the git repository, run the following commands:
+The config file needs to be filled in with at a bare minimum the API credentials you'll use to fetch the logs, which can be gotten from the StackPath or MaxCDN control panel.
 
+The config file is located in
 ```
-git remote set-url origin https://github.com/bmconklin/stackpathcdnbeat
-git push origin master
+$GOPATH/src/github.com/bmconklin/stackpathcdnbeat/stackpathcdnbeat.yml
 ```
-
-For further development, check out the [beat developer guide](https://www.elastic.co/guide/en/beats/libbeat/current/new-beat.html).
 
 ### Build
 
-To build the binary for Stackpathcdnbeat run the command below. This will generate a binary
-in the same directory with the name stackpathcdnbeat.
+To compile the Stackpathcdnbeat, run:
 
 ```
-make
+cd $GOPATH/src/github.com/bmconklin/stackpathcdnbeat
+go build
 ```
-
 
 ### Run
 
 To run Stackpathcdnbeat with debugging output enabled, run:
 
 ```
-./stackpathcdnbeat -c stackpathcdnbeat.yml -e -d "*"
+$GOPATH/src/github.com/bmconklin/stackpathcdnbeat/stackpathcdnbeat -c $GOPATH/src/github.com/bmconklin/stackpathcdnbeat/stackpathcdnbeat.yml -e -d "*"
 ```
-
-
-### Test
-
-To test Stackpathcdnbeat, run the following command:
-
-```
-make testsuite
-```
-
-alternatively:
-```
-make unit-tests
-make system-tests
-make integration-tests
-make coverage-report
-```
-
-The test coverage is reported in the folder `./build/coverage/`
-
-### Update
-
-Each beat has a template for the mapping in elasticsearch and a documentation for the fields
-which is automatically generated based on `etc/fields.yml`.
-To generate etc/stackpathcdnbeat.template.json and etc/stackpathcdnbeat.asciidoc
-
-```
-make update
-```
-
-
-### Cleanup
-
-To clean  Stackpathcdnbeat source code, run the following commands:
-
-```
-make fmt
-make simplify
-```
-
-To clean up the build directory and generated artifacts, run:
-
-```
-make clean
-```
-
 
 ### Clone
 
@@ -103,17 +52,3 @@ mkdir -p ${GOPATH}/github.com/bmconklin/stackpathcdnbeat
 cd ${GOPATH}/github.com/bmconklin/stackpathcdnbeat
 git clone https://github.com/bmconklin/stackpathcdnbeat
 ```
-
-
-For further development, check out the [beat developer guide](https://www.elastic.co/guide/en/beats/libbeat/current/new-beat.html).
-
-
-## Packaging
-
-The beat frameworks provides tools to crosscompile and package your beat for different platforms. This requires [docker](https://www.docker.com/) and vendoring as described above. To build packages of your beat, run the following command:
-
-```
-make package
-```
-
-This will fetch and create all images required for the build process. The hole process to finish can take several minutes.

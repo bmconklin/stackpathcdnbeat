@@ -9,8 +9,13 @@ stackpathcdnbeat:
   # The endpoint and path that the stackpath api client should connect to. Get this
   # from the stackpath control panel. These may vary depending on requesting from
   # MaxCDN or StackPath.
+  # For MaxCDN use:
   endpoint: "https://rws.maxcdn.com"
   path: "/v3/reporting/logs.json"
+
+  # For StackPath use: (TODO verify path)
+  # endpoint: "https://api.stackpath.com"
+  # path: "/logs"
   # Stackpath API credentials to use, get them from the stackpath control panel.
   # https://cp.maxcdn.com/account/api
   api_credentials:
